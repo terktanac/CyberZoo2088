@@ -3,6 +3,7 @@ from mysql.connector import Error
 
 
 class Event():
+    
     def __init__(self, data) :
         self.custDataObj = EventDB(data)
         
