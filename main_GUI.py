@@ -112,7 +112,7 @@ class AddEventWin() :
         self.cwin = Toplevel()
         self.cwin.title(title)
         self.cwin.geometry('600x400')
-        Label(self.cwin, text="ID").grid(row=0, column=1)
+        Label(self.cwin, text="ID is xxxxx").grid(row=0, column=1) #need to change to be an generated id
         Label(self.cwin, text="Event Types").grid(row=1, column=1)
         var = IntVar()
         Radiobutton(self.cwin, text="Show Event", variable=var, value=1).grid(row=2, column=1)
@@ -192,9 +192,9 @@ class UpdateEventWin() :
 
         if retmsg[0] == "0" :
             self.entry_id.delete(0, END)
-            self.entry_id.insert(0, aCustomer.getInfo()[0])
+            self.entry_id.insert(0, anEvent.getInfo()[0])
             self.entry_name.delete(0, END)
-            self.entry_name.insert(0, aCustomer.getInfo()[1])
+            self.entry_name.insert(0, anEvent.getInfo()[1])
             
         else :
             self.entry_name.delete(0, END)
