@@ -93,10 +93,48 @@ class CustomerWindow():
         self.cwin.mainloop()
 
 
-class AddEventWin(CustomerWindow) :
+"""class AddEventWin(CustomerWindow) :
 
     def __init__(self, title) :
         super().__init__(title)
+        self.button_submit.configure(text="Add New Event", command=self.submitNewEvent)
+        
+    def submitNewCust(self) :
+        self.cwin.title("Submitted")
+        dataentry = [self.entry_id.get(), self.entry_name.get()]
+        anEvent = Event(dataentry)
+        retmsg = anEvent.write()
+        self.label_status.config(text=retmsg[1])"""
+
+class AddEventWin() :
+
+    def __init__(self, title) :
+        self.cwin = Toplevel()
+        self.cwin.title(title)
+        self.cwin.geometry('600x400')
+        
+        Label(self.cwin, text="Name").grid(row=0, column=0)
+        Label(self.cwin, text="Date").grid(row=1, column=0)
+        Label(self.cwin, text="Time").grid(row=2, column=0)
+        Label(self.cwin, text="Zone").grid(row=3, column=0)
+        Label(self.cwin, text="National ID").grid(row=4, column=0)
+        Label(self.cwin, text="Event Types").grid(row=5, column=1)
+        Radiobutton(self.cwin, text="Show Event").grid(row=6,column=1)
+        Radiobutton(self.cwin, text="External Event").grid(row=7,column=1)
+
+        self.entry_name = Entry(self.cwin).grid(row=0, column=1)
+        self.entry_date = Entry(self.cwin).grid(row=1, column=1)
+        self.entry_time = Entry(self.cwin).grid(row=2, column=1)
+        self.entry_zone = Entry(self.cwin).grid(row=3, column=1)
+        self.entry_nid = Entry(self.cwin).grid(row=4, column=1)
+
+        Button(self.cwin, text ="SUBMIT", command=self.cwin.destroy).grid(row=8, column=1)
+        Button(self.cwin, text="EXIT", command=self.cwin.destroy).grid(row=9, column=1)
+
+        self.label_status = Label(self.cwin, text="")
+        self.label_status.grid(row=5, column=1)
+
+        self.cwin.mainloop()
         self.button_submit.configure(text="Add New Event", command=self.submitNewEvent)
         
     def submitNewCust(self) :
