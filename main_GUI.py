@@ -109,6 +109,7 @@ class CustomerWindow():
 class AddEventWin() :
 
     def __init__(self, title) :
+        events = [("Show Event",1),("External Event",2)]
         self.cwin = Toplevel()
         self.cwin.title(title)
         self.cwin.geometry('600x400')
@@ -119,8 +120,9 @@ class AddEventWin() :
         Label(self.cwin, text="Zone").grid(row=3, column=0)
         Label(self.cwin, text="National ID").grid(row=4, column=0)
         Label(self.cwin, text="Event Types").grid(row=5, column=1)
-        Radiobutton(self.cwin, text="Show Event").grid(row=6,column=1)
-        Radiobutton(self.cwin, text="External Event").grid(row=7,column=1)
+        var = IntVar()
+        Radiobutton(self.cwin, text="Show Event", variable=var, value=1).grid(row=6, column=1)
+        Radiobutton(self.cwin, text="External Event", variable=var, value=2).grid(row=7, column=1)
 
         self.entry_name = Entry(self.cwin).grid(row=0, column=1)
         self.entry_date = Entry(self.cwin).grid(row=1, column=1)
