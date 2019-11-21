@@ -40,8 +40,8 @@ class EventDB() :
             objdata = (wdata[0], wdata[1])
             
             sqlQuery = "insert into "+table+" (id, name) " \
-                               "values (%s,%s)"
-            
+                               "values (%s,%s)" 
+            #change to add event
             cursor = connection.cursor()
             cursor.execute(sqlQuery, objdata)
             

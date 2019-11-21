@@ -109,54 +109,96 @@ class CustomerWindow():
 class AddEventWin() :
 
     def __init__(self, title) :
-        events = [("Show Event",1),("External Event",2)]
         self.cwin = Toplevel()
         self.cwin.title(title)
         self.cwin.geometry('600x400')
-        
-        Label(self.cwin, text="Name").grid(row=0, column=0)
-        Label(self.cwin, text="Date").grid(row=1, column=0)
-        Label(self.cwin, text="Time").grid(row=2, column=0)
-        Label(self.cwin, text="Zone").grid(row=3, column=0)
-        Label(self.cwin, text="National ID").grid(row=4, column=0)
-        Label(self.cwin, text="Event Types").grid(row=5, column=1)
+        Label(self.cwin, text="ID").grid(row=0, column=1)
+        Label(self.cwin, text="Event Types").grid(row=1, column=1)
         var = IntVar()
-        Radiobutton(self.cwin, text="Show Event", variable=var, value=1).grid(row=6, column=1)
-        Radiobutton(self.cwin, text="External Event", variable=var, value=2).grid(row=7, column=1)
+        Radiobutton(self.cwin, text="Show Event", variable=var, value=1).grid(row=2, column=1)
+        Radiobutton(self.cwin, text="External Event", variable=var, value=2).grid(row=3, column=1)
 
-        self.entry_name = Entry(self.cwin).grid(row=0, column=1)
-        self.entry_date = Entry(self.cwin).grid(row=1, column=1)
-        self.entry_time = Entry(self.cwin).grid(row=2, column=1)
-        self.entry_zone = Entry(self.cwin).grid(row=3, column=1)
-        self.entry_nid = Entry(self.cwin).grid(row=4, column=1)
+        Label(self.cwin, text="Name").grid(row=4, column=0)
+        Label(self.cwin, text="Date").grid(row=5, column=0)
+        Label(self.cwin, text="Time").grid(row=6, column=0)
+        Label(self.cwin, text="Zone").grid(row=7, column=0)
+        Label(self.cwin, text="National ID").grid(row=8, column=0)
 
-        Button(self.cwin, text ="SUBMIT", command=self.cwin.destroy).grid(row=8, column=1)
-        Button(self.cwin, text="EXIT", command=self.cwin.destroy).grid(row=9, column=1)
+        self.entry_name = Entry(self.cwin).grid(row=4, column=1)
+        self.entry_date = Entry(self.cwin).grid(row=5, column=1)
+        self.entry_time = Entry(self.cwin).grid(row=6, column=1)
+        self.entry_zone = Entry(self.cwin).grid(row=7, column=1)
+        self.entry_nid = Entry(self.cwin).grid(row=8, column=1)
+
+        Button(self.cwin, text ="SUBMIT", command=self.cwin.destroy).grid(row=9, column=1)
+        Button(self.cwin, text="EXIT", command=self.cwin.destroy).grid(row=10, column=1)
 
         self.label_status = Label(self.cwin, text="")
-        self.label_status.grid(row=5, column=1)
+        self.label_status.grid(row=11, column=1)
 
         self.cwin.mainloop()
         self.button_submit.configure(text="Add New Event", command=self.submitNewEvent)
         
-    def submitNewCust(self) :
+    def submitNewEvent(self) :
         self.cwin.title("Submitted")
-        dataentry = [self.entry_id.get(), self.entry_name.get()]
+        dataentry = [self.entry_id.get(), self.entry_name.get()] #change to Event attributes
         anEvent = Event(dataentry)
         retmsg = anEvent.write()
         self.label_status.config(text=retmsg[1])
 
-class UpdateEventWin(CustomerWindow) :
+class UpdateEventWin() :
 
     def __init__(self, title) :
-        super().__init__(title)
+        self.cwin = Toplevel()
+        self.cwin.title(title)
+        self.cwin.geometry('600x400')
+        Label(self.cwin, text="ID").grid(row=0, column=0)
+        self.entry_search = Entry(self.cwin).grid(row=0, column=1)
+        Label(self.cwin, text="Event Types").grid(row=1, column=1)
+        Label(self.cwin, text="This event is Show/External").grid(row=2, column=1) # need to change to be an output from search
+
+
+        Label(self.cwin, text="Name").grid(row=4, column=0)
+        Label(self.cwin, text="Date").grid(row=5, column=0)
+        Label(self.cwin, text="Time").grid(row=6, column=0)
+        Label(self.cwin, text="Zone").grid(row=7, column=0)
+        Label(self.cwin, text="National ID").grid(row=8, column=0)
+
+        self.entry_name = Entry(self.cwin).grid(row=4, column=1)
+        self.entry_date = Entry(self.cwin).grid(row=5, column=1)
+        self.entry_time = Entry(self.cwin).grid(row=6, column=1)
+        self.entry_zone = Entry(self.cwin).grid(row=7, column=1)
+        self.entry_nid = Entry(self.cwin).grid(row=8, column=1)
+        # need to change to be an output from search
+
+        Button(self.cwin, text ="SEARCH", command=self.cwin.destroy).grid(row=0, column=2)
+        Button(self.cwin, text ="SUBMIT", command=self.cwin.destroy).grid(row=9, column=1)
+        Button(self.cwin, text="EXIT", command=self.cwin.destroy).grid(row=10, column=1)
+
+        self.label_status = Label(self.cwin, text="")
+        self.label_status.grid(row=11, column=1)
+
+        self.cwin.mainloop()
         self.button_submit.configure(text="Update Event", command=self.updateEvent)
         
     def updateEvent(self) :
-        self.cwin.title("Submitted")
-        dataentry = [self.entry_id.get(), self.entry_name.get()]
+        self.cwin.title("Updated")
+    def searchEvent(self) :
+        self.cwin.title("Searched")
+        dataentry = [self.entry_id.get(), self.entry_name.get()] #change to Event attributes
         anEvent = Event(dataentry)
-        retmsg = anEvent.write()
+        
+        retmsg = anEvent.search()
+
+        if retmsg[0] == "0" :
+            self.entry_id.delete(0, END)
+            self.entry_id.insert(0, aCustomer.getInfo()[0])
+            self.entry_name.delete(0, END)
+            self.entry_name.insert(0, aCustomer.getInfo()[1])
+            
+        else :
+            self.entry_name.delete(0, END)
+            self.entry_name.insert(0, "?????")
         self.label_status.config(text=retmsg[1])
 
 class DelAnimalWin(CustomerWindow) :
