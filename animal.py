@@ -2,10 +2,10 @@ import mysql.connector
 from mysql.connector import Error
 
 
-class Event():
+class Animal():
     
     def __init__(self, data) :
-        self.custDataObj = EventDB(data)
+        self.custDataObj = AnimalDB(data)
         
     def write(self) :
         return self.custDataObj.writeDB("testdb","test")
@@ -22,7 +22,7 @@ class Event():
     def getInfo(self) :
         return self.custDataObj.data
     
-class EventDB() :
+class AnimalDB() :
 
     def __init__(self, data) :
         self.data = data
@@ -41,7 +41,7 @@ class EventDB() :
             
             sqlQuery = "insert into "+table+" (id, name) " \
                                "values (%s,%s)" 
-            #change to add event
+            #change to add Animal
             cursor = connection.cursor()
             cursor.execute(sqlQuery, objdata)
             
