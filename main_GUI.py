@@ -1,6 +1,5 @@
 from tkinter import *
-from event import Event
-from animal import Animal
+from connector import insert, delete
 
 
 class Main_GUI() :
@@ -59,13 +58,12 @@ class Main_GUI() :
     def popDelAnimalWin(self) :
         DelAnimalWin("Animal Deleting")
 
-    # def popQueryWin(self) :
-    #     QueryWin("Query")
-
     def exitProgram(self) :
         exit()
 
+
 class AddEventWin() :
+
 
     def __init__(self, title) :
         self.cwin = Toplevel()
@@ -73,21 +71,26 @@ class AddEventWin() :
         self.cwin.geometry('250x300')
         Label(self.cwin, text="ID is xxxxx").grid(row=0, column=1) #need to change to be an generated id
         Label(self.cwin, text="Event Types").grid(row=1, column=1)
+        
         var = IntVar()
         Radiobutton(self.cwin, text="Show Event", variable=var, value=1).grid(row=2, column=1)
         Radiobutton(self.cwin, text="External Event", variable=var, value=2).grid(row=3, column=1)
+        var.set(1)
 
         Label(self.cwin, text="Name").grid(row=4, column=0)
         Label(self.cwin, text="Date").grid(row=5, column=0)
         Label(self.cwin, text="Time").grid(row=6, column=0)
         Label(self.cwin, text="Zone").grid(row=7, column=0)
-        Label(self.cwin, text="National ID").grid(row=8, column=0)
 
-        self.entry_name = Entry(self.cwin).grid(row=4, column=1)
-        self.entry_date = Entry(self.cwin).grid(row=5, column=1)
-        self.entry_time = Entry(self.cwin).grid(row=6, column=1)
-        self.entry_zone = Entry(self.cwin).grid(row=7, column=1)
-        self.entry_nid = Entry(self.cwin).grid(row=8, column=1)
+        self.entry_name = Entry(self.cwin)
+        self.entry_date = Entry(self.cwin)
+        self.entry_time = Entry(self.cwin)
+        self.entry_zone = Entry(self.cwin)
+        
+        self.entry_name.grid(row=4, column=1)
+        self.entry_date.grid(row=5, column=1)
+        self.entry_time.grid(row=6, column=1)
+        self.entry_zone.grid(row=7, column=1)
 
         self.button_submit = Button(self.cwin, text ="SUBMIT", command=self.submitNewEvent).grid(row=9, column=1)
         self.button_exit = Button(self.cwin, text="EXIT", command=self.cwin.destroy).grid(row=10, column=1)
@@ -97,12 +100,18 @@ class AddEventWin() :
 
         self.cwin.mainloop()
         
+
     def submitNewEvent(self) :
         self.cwin.title("Submitted")
-        dataentry = [self.entry_id.get(), self.entry_name.get()] #change to Event attributes
-        anEvent = Event(dataentry)
-        retmsg = anEvent.write()
-        self.label_status.config(text=retmsg[1])
+        ret_msg = insert(
+            'zoo_event', 
+            EDate = self.entry_date.get(),
+            EName = self.entry_name.get(),
+            ETime = self.entry_time.get(),
+            ZName = self.entry_zone.get()
+        )
+        self.label_status.config(text=ret_msg[1])
+
 
 class UpdateEventWin() :
 
@@ -206,6 +215,7 @@ class DelAnimalWin() :
             self.entry_name.delete(0, END)
             self.entry_name.insert(0, "?????")
         self.label_status.config(text=retmsg[1])
+
     def searchAnimal(self) :
         self.cwin.title("Searched")
         dataentry = [self.entry_id.get(), self.entry_name.get()] #change to Event attributes
