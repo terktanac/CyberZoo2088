@@ -13,7 +13,6 @@ def insert(table, **kwargs):
             ETime = '09:10:00',
             ZName = 'Desert'
         )
-    
     """
     
     try:
@@ -39,7 +38,6 @@ def insert(table, **kwargs):
         cursor = connection.cursor()
         cursor.execute(sql_query)
         connection.commit()
-                
     except:
         ret_msg = ["1", "Error"]
     else:
@@ -62,15 +60,14 @@ def delete(table, **kwargs):
             user='root',
             password='tongplw'
         )
-
+        
+        cond = ''
         for key, val in kwargs.items():
-            attr = key
-            value = val
+            cond += "{key}='{val}'".format(key=key, val=val)
 
-        sql_query = "DELETE FROM {table} WHERE {attr}='{val}';".format(
+        sql_query = "DELETE FROM {table} WHERE {cond};".format(
             table=table,
-            attr=attr,
-            val=value
+            cond=cond
         )
         
         cursor = connection.cursor()
@@ -91,7 +88,78 @@ def delete(table, **kwargs):
 
 
 def select(table, **kwargs):
-    pass
+    
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='test',
+            user='root',
+            password='tongplw'
+        )
 
-# print(insert('animal', AnimalID='4', Nickname='AA', Gender='F'))
-# delete('animal', AnimalID=1)
+        cond = ''
+        for key, val in kwargs.items():
+            cond += "{key}='{val}',".format(key=key, val=val)
+
+        sql_query = "SELECT * FROM {table} WHERE {cond};".format(
+            table=table,
+            cond=cond[:-1]
+        )
+        
+        cursor = connection.cursor()
+        cursor.execute(sql_query)
+        records = {k:v for k, v in zip(cursor.column_names, cursor.fetchone())}
+    except:
+        ret_msg = ["1", "Error"]
+    else:
+        ret_msg = ["1", "Not Found"]
+        if records != None :
+            ret_msg = ["0", "Complete", records]
+    finally:
+        if connection.is_connected():
+            connection.close()
+            cursor.close()
+
+    return ret_msg
+
+
+def update(table, pk, pk_val, **kwargs):
+
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='test',
+            user='root',
+            password='tongplw'
+        )
+
+        values = ''
+        for key, val in kwargs.items():
+            values += "{key}='{val}',".format(key=key, val=val)
+
+        sql_query = "UPDATE {table} SET {values} WHERE {cond};".format(
+            table=table,
+            values=values[:-1],
+            cond='{pk}={pk_val}'.format(pk=pk, pk_val=pk_val)
+        )
+        
+        cursor = connection.cursor()
+        cursor.execute(sql_query)
+        connection.commit()
+                
+    except:
+        ret_msg = ["1", "Error"]
+    else:
+        ret_msg = ["0", "Completed"]
+    finally:
+        if connection.is_connected():
+            connection.close()
+            cursor.close()
+
+    return ret_msg
+
+# print(insert('animal', AnimalID='7', Nickname='AA', Gender='F'))
+# delete('zoo_event', EventID=1)
+# insert('zoo_event', EDate='1999-2-2', EName='A', ETime='09:10:00', ZName='HOT')
+# print(select('zoo_event', EventID='6'))
+# print(update('zoo_event', 'EventID', '6', EDate='1999-2-2', EName='AAA', ETime='09:10:00', ZName='HOTTTT'))
