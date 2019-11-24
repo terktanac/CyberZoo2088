@@ -18,9 +18,9 @@ def insert(table, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database='cyberzoo2088',
             user='root',
-            password='tongplw'
+            password='terktana18'
         )
 
         params = ''
@@ -56,9 +56,9 @@ def delete(table, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database='cyberzoo2088',
             user='root',
-            password='tongplw'
+            password='terktana18'
         )
         
         cond = ''
@@ -92,9 +92,9 @@ def select(table, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database='cyberzoo2088',
             user='root',
-            password='tongplw'
+            password='terktana18'
         )
 
         cond = ''
@@ -128,9 +128,9 @@ def update(table, pk, pk_val, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database='cyberzoo2088',
             user='root',
-            password='tongplw'
+            password='terktana18'
         )
 
         values = ''

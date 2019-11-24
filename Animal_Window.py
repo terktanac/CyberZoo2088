@@ -36,7 +36,7 @@ class AddAnimalWin() :
         self.entry_hid.grid(row=8, column=1)
         self.entry_pid.grid(row=9, column=1)
 
-        Button(self.cwin, text ="ADD", command=self.submitNewEvent).grid(row=10, column=1)
+        Button(self.cwin, text ="ADD", command=self.submitNewAnimal).grid(row=10, column=1)
         Button(self.cwin, text="EXIT", command=self.cwin.destroy).grid(row=11, column=1)
 
         self.label_status = Label(self.cwin, text="")
@@ -45,7 +45,7 @@ class AddAnimalWin() :
         self.cwin.mainloop()
 
 
-    def submitNewEvent(self) :
+    def submitNewAnimal(self) :
  
         ret_msg = insert(
             'animal', 
@@ -100,8 +100,8 @@ class UpdateAnimalWin():
         self.entry_hid.grid(row=8, column=1)
         self.entry_pid.grid(row=9, column=1)
 
-        Button(self.cwin, text="SEARCH", command=self.searchEvent).grid(row=0, column=2)
-        self.button = Button(self.cwin, text="UPDATE", command=self.updateEvent)
+        Button(self.cwin, text="SEARCH", command=self.searchAnimal).grid(row=0, column=2)
+        self.button = Button(self.cwin, text="UPDATE", command=self.updateAnimal)
         self.button.grid(row=10, column=1)
         Button(self.cwin, text="EXIT", command=self.cwin.destroy).grid(row=11, column=1)
 
@@ -110,7 +110,7 @@ class UpdateAnimalWin():
 
         # self.cwin.mainloop()
         
-    def updateEvent(self) :
+    def updateAnimal(self) :
         ret_msg = update(
             'animal',
             'AnimalID',
@@ -126,7 +126,7 @@ class UpdateAnimalWin():
         )
         self.label_status.config(text=ret_msg[1])
 
-    def searchEvent(self) :
+    def searchAnimal(self) :
         ret_msg = select(
             'animal',
             AnimalID=self.entry_search.get()
@@ -178,7 +178,7 @@ class DeleteAnimalWin(UpdateAnimalWin):
         super().__init__(title)
         self.button.config(text='DELETE')
     
-    def updateEvent(self) :
+    def updateAnimal(self) :
         ret_msg = delete(
             'animal',
             AnimalID=self.entry_search.get()
