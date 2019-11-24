@@ -27,9 +27,12 @@ def insert(table, **kwargs):
         values = ''
         for key, val in kwargs.items():
             params += key + ','
-            values += "'" + val + "',"
-
-        sql_query = "INSERT INTO {table} ({params}) VALUES ({values});".format(
+            if val == '':
+                values += "null,".format(val=val)
+            else:
+                values += "'{val}',".format(val=val)
+            
+            sql_query = "INSERT INTO {table} ({params}) VALUES ({values});".format(
             table=table,
             params=params[:-1],
             values=values[:-1]
@@ -108,7 +111,7 @@ def select(table, **kwargs):
         
         cursor = connection.cursor()
         cursor.execute(sql_query)
-        records = {k:v for k, v in zip(cursor.column_names, cursor.fetchone())}
+        records = {k:v if v else '' for k, v in zip(cursor.column_names, cursor.fetchone())}
     except:
         ret_msg = ["1", "Error"]
     else:
@@ -158,7 +161,7 @@ def update(table, pk, pk_val, **kwargs):
 
     return ret_msg
 
-# print(insert('animal', AnimalID='7', Nickname='AA', Gender='F'))
+# print(insert('animal', ABDate='1999-1-1', AType='AA', Gender='F', HabitatID='1', ParentID=''))
 # delete('zoo_event', EventID=1)
 # insert('zoo_event', EDate='1999-2-2', EName='A', ETime='09:10:00', ZName='HOT')
 # print(select('zoo_event', EventID='6'))

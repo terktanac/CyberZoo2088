@@ -7,7 +7,7 @@ class AddAnimalWin() :
     def __init__(self, title) :
         self.cwin = Toplevel()
         self.cwin.title(title)
-        self.cwin.geometry('300x270')
+        self.cwin.geometry('250x250')
     
         Label(self.cwin, text="Animal Type").grid(row=2, column=0)
         Label(self.cwin, text="Animal Nickname").grid(row=3, column=0)
@@ -67,7 +67,7 @@ class UpdateAnimalWin():
     def __init__(self, title) :
         self.cwin = Toplevel()
         self.cwin.title(title)
-        self.cwin.geometry('270x300')
+        self.cwin.geometry('300x250')
 
         Label(self.cwin, text="ID").grid(row=0, column=0)
         self.entry_search = Entry(self.cwin)

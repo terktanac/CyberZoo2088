@@ -7,7 +7,7 @@ class AddEventWin() :
     def __init__(self, title) :
         self.cwin = Toplevel()
         self.cwin.title(title)
-        self.cwin.geometry('250x300')
+        self.cwin.geometry('230x300')
         Label(self.cwin, text="ID is xxxxx").grid(row=0, column=1) #need to change to be an generated id
         Label(self.cwin, text="Event Types").grid(row=1, column=1)
         
@@ -55,9 +55,9 @@ class AddEventWin() :
                 EName = self.entry_name.get(),
                 ETime = self.entry_time.get(),
                 ZName = self.entry_zone.get(),
-                SFlag = True,
+                SFlag = 'true',
                 NID = self.entry_host.get(),
-                EFlag = False
+                EFlag = 'false'
             )
         else:
             ret_msg = insert(
@@ -66,8 +66,8 @@ class AddEventWin() :
                 EName = self.entry_name.get(),
                 ETime = self.entry_time.get(),
                 ZName = self.entry_zone.get(),
-                SFlag = False,
-                EFlag = True,
+                SFlag = 'false',
+                EFlag = 'true',
                 VisitorID = self.entry_host.get()
             )
 
@@ -79,7 +79,7 @@ class UpdateEventWin() :
     def __init__(self, title) :
         self.cwin = Toplevel()
         self.cwin.title(title)
-        self.cwin.geometry('270x300')
+        self.cwin.geometry('250x250')
 
         Label(self.cwin, text="ID").grid(row=0, column=0)
         Label(self.cwin, text="Event Types").grid(row=1, column=1)
