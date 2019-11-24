@@ -1,8 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
 
-password = 'password'
-database = 'cyberzoo2088'
+password = 'tongplw'
+database = 'test'
 
 def insert(table, **kwargs):
     """ FOR EXAMPLE
@@ -45,7 +45,7 @@ def insert(table, **kwargs):
     except:
         ret_msg = ["1", "Error"]
     else:
-        ret_msg = ["0", "Completed"]
+        ret_msg = ["0", "Completed ID = " + str(cursor.lastrowid)]
     finally:
         if connection.is_connected():
             connection.close()
@@ -118,7 +118,7 @@ def select(table, **kwargs):
     else:
         ret_msg = ["1", "Not Found"]
         if records != None :
-            ret_msg = ["0", "Complete", records]
+            ret_msg = ["0", "Completed", records]
     finally:
         if connection.is_connected():
             connection.close()
@@ -167,3 +167,4 @@ def update(table, pk, pk_val, **kwargs):
 # insert('zoo_event', EDate='1999-2-2', EName='A', ETime='09:10:00', ZName='HOT')
 # print(select('zoo_event', EventID='6'))
 # print(update('zoo_event', 'EventID', '6', EDate='1999-2-2', EName='AAA', ETime='09:10:00', ZName='HOTTTT'))
+# print(insert('zoo_event', EDate='1999-1-1',EName='AA', ETime='8:8:8', ZName='AAA', SFlag=1, NID=1, EFlag=0))
