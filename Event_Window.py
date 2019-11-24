@@ -55,9 +55,9 @@ class AddEventWin() :
                 EName = self.entry_name.get(),
                 ETime = self.entry_time.get(),
                 ZName = self.entry_zone.get(),
-                SFlag = True,
+                SFlag = 'true',
                 NID = self.entry_host.get(),
-                EFlag = False
+                EFlag = 'false'
             )
         else:
             ret_msg = insert(
@@ -66,8 +66,8 @@ class AddEventWin() :
                 EName = self.entry_name.get(),
                 ETime = self.entry_time.get(),
                 ZName = self.entry_zone.get(),
-                SFlag = False,
-                EFlag = True,
+                SFlag = 'false',
+                EFlag = 'true',
                 VisitorID = self.entry_host.get()
             )
 
