@@ -28,7 +28,7 @@ def insert(table, **kwargs):
         for key, val in kwargs.items():
             params += key + ','
             if val == '':
-                values += "null,".format(val=val)
+                values += "null,"
             else:
                 values += "'{val}',".format(val=val)
             
