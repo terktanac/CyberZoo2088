@@ -1,7 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
 
-
+database = 'test'
+password = 'tongplw'
 
 def insert(table, **kwargs):
     """ FOR EXAMPLE
@@ -18,9 +19,9 @@ def insert(table, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database=database,
             user='root',
-            password='tongplw'
+            password=password
         )
 
         params = ''
@@ -59,9 +60,9 @@ def delete(table, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database=database,
             user='root',
-            password='tongplw'
+            password=password
         )
         
         cond = ''
@@ -95,9 +96,9 @@ def select(table, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database=database,
             user='root',
-            password='tongplw'
+            password=password
         )
 
         cond = ''
@@ -131,9 +132,9 @@ def update(table, pk, pk_val, **kwargs):
     try:
         connection = mysql.connector.connect(
             host='localhost',
-            database='test',
+            database=database,
             user='root',
-            password='tongplw'
+            password=password
         )
 
         values = ''
