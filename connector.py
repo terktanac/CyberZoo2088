@@ -126,7 +126,7 @@ def select(table, one_row=True, command=None, **kwargs):
     else:
         ret_msg = ["1", "Not Found"]
         if records != None :
-            ret_msg = ["0", "Completed", records]
+            ret_msg = ["0", "Search Found", records]
     finally:
         if connection.is_connected():
             connection.close()
