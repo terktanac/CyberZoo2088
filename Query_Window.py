@@ -35,11 +35,11 @@ class EventQueryWin():
             i.config(text='')
 
         if ret_msg[0] == "0" :
-            rows = ret_msg[2]
+            result = ret_msg[2]
             
             self.cells = []
-            for i, row in enumerate(rows): #Rows
-                for j, element in enumerate(row): #Columns
+            for i, row in enumerate(result): 
+                for j, element in enumerate(row):
                     b = Label(self.cwin, text=element)
                     b.grid(row=3+i, column=j)
                     self.cells += [b]
