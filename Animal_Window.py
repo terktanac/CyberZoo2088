@@ -54,7 +54,7 @@ class AddAnimalWin() :
             Breed = self.entry_breed.get(),
             ABDate = self.entry_bd.get(),
             Gender = self.entry_gender.get(),
-            Comefrom = self.entry_comefrom.get(),
+            ComeFrom = self.entry_comefrom.get(),
             ParentID = self.entry_pid.get(),
             HabitatID = self.entry_hid.get()
         )
@@ -67,7 +67,7 @@ class UpdateAnimalWin():
     def __init__(self, title) :
         self.cwin = Toplevel()
         self.cwin.title(title)
-        self.cwin.geometry('300x250')
+        self.cwin.geometry('325x300')
 
         Label(self.cwin, text="ID").grid(row=0, column=0)
         self.entry_search = Entry(self.cwin)
@@ -115,14 +115,14 @@ class UpdateAnimalWin():
             'animal',
             'AnimalID',
             self.entry_search.get(),
-            AType=self.entry_type.get(),
-            Nickname=self.entry_nickname.get(),
-            Breed=self.entry_breed.get(),
-            ABDate=self.entry_bd.get(),
-            Gender=self.entry_gender.get(),
-            ComeFrom=self.entry_comefrom.get(),
-            HabitatID=self.entry_hid.get(),
-            ParentID=self.entry_pid.get()
+            AType = self.entry_type.get(),
+            Nickname = self.entry_nickname.get(),
+            Breed = self.entry_breed.get(),
+            # ABDate = self.entry_bd.get(),
+            # Gender = self.entry_gender.get(),
+            # ComeFrom = self.entry_comefrom.get(),
+            # ParentID = self.entry_pid.get(),
+            # HabitatID = self.entry_hid.get()
         )
         self.label_status.config(text=ret_msg[1])
 
