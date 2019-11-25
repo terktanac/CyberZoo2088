@@ -154,7 +154,6 @@ def update(table, pk, pk_val, **kwargs):
             values=values[:-1],
             cond='{pk}={pk_val}'.format(pk=pk, pk_val=pk_val)
         )
-        
         cursor = connection.cursor()
         cursor.execute(sql_query)
         connection.commit()
