@@ -1,6 +1,7 @@
 from tkinter import *
 from Event_Window import *
 from Animal_Window import *
+from Query_Window import *
 
 class Main_GUI() :
 
@@ -21,6 +22,7 @@ class Main_GUI() :
         self.add_button('Add New Event', self.popAddEventWin)
         self.add_button('Update Event', self.popUpdateEventWin)
         self.add_button('Delete Event', self.popDeleteEventWin)
+        self.add_button('Event Income', self.popQueryEventWin)
 
         self.add_label('\nAnimal Management')
         self.add_button('Add New Animal', self.popAddAnimalWin)
@@ -29,7 +31,7 @@ class Main_GUI() :
 
         self.add_label('\n')        
         self.add_button('   Exit   ', self.exitProgram) 
-        self.root.geometry('600x425')
+        self.root.geometry('600x450')
         self.root.mainloop()
 
     def add_label(self, text, size=15, bold=False):
@@ -54,6 +56,9 @@ class Main_GUI() :
         
     def popDeleteEventWin(self) :
         DeleteEventWin("Event Deleting")
+
+    def popQueryEventWin(self):
+        EventQueryWin("Event Income")
 
     def popAddAnimalWin(self) :
         AddAnimalWin("Animal Registration")

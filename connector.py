@@ -91,7 +91,7 @@ def delete(table, **kwargs):
 
 
 
-def select(table, **kwargs):
+def select(table, one_row=True, command=None, **kwargs):
     
     try:
         connection = mysql.connector.connect(
@@ -101,18 +101,26 @@ def select(table, **kwargs):
             password=password
         )
 
-        cond = ''
-        for key, val in kwargs.items():
-            cond += "{key}='{val}',".format(key=key, val=val)
+        if command == None:
+            cond = ''
+            for key, val in kwargs.items():
+                cond += "{key}='{val}',".format(key=key, val=val)
 
-        sql_query = "SELECT * FROM {table} WHERE {cond};".format(
-            table=table,
-            cond=cond[:-1]
-        )
+            sql_query = "SELECT * FROM {table} WHERE {cond};".format(
+                table=table,
+                cond=cond[:-1]
+            )
+        else:
+            sql_query = command
         
         cursor = connection.cursor()
         cursor.execute(sql_query)
-        records = {k:v if v else '' for k, v in zip(cursor.column_names, cursor.fetchone())}
+        if one_row:
+            records = {k:v if v else '' for k, v in zip(cursor.column_names, cursor.fetchone())}
+        else:
+            records = [list(cursor.column_names)] + cursor.fetchall()
+            
+
     except:
         ret_msg = ["1", "Error"]
     else:
@@ -162,9 +170,12 @@ def update(table, pk, pk_val, **kwargs):
 
     return ret_msg
 
+
+
 # print(insert('animal', ABDate='1999-1-1', AType='AA', Gender='F', HabitatID='1', ParentID=''))
 # delete('zoo_event', EventID=1)
 # insert('zoo_event', EDate='1999-2-2', EName='A', ETime='09:10:00', ZName='HOT')
 # print(select('zoo_event', EventID='6'))
+print(select('zoo_event', EName='AA', one_row=False))
 # print(update('zoo_event', 'EventID', '6', EDate='1999-2-2', EName='AAA', ETime='09:10:00', ZName='HOTTTT'))
 # print(insert('zoo_event', EDate='1999-1-1',EName='AA', ETime='8:8:8', ZName='AAA', SFlag=1, NID=1, EFlag=0))
