@@ -147,7 +147,8 @@ def update(table, pk, pk_val, **kwargs):
 
         values = ''
         for key, val in kwargs.items():
-            values += "{key}='{val}',".format(key=key, val=val)
+            if val != '':
+                values += "{key}='{val}',".format(key=key, val=val)
 
         sql_query = "UPDATE {table} SET {values} WHERE {cond};".format(
             table=table,
@@ -176,6 +177,6 @@ def update(table, pk, pk_val, **kwargs):
 # delete('zoo_event', EventID=1)
 # insert('zoo_event', EDate='1999-2-2', EName='A', ETime='09:10:00', ZName='HOT')
 # print(select('zoo_event', EventID='6'))
-print(select('zoo_event', EName='AA', one_row=False))
+# print(select('zoo_event', EName='AA', one_row=False))
 # print(update('zoo_event', 'EventID', '6', EDate='1999-2-2', EName='AAA', ETime='09:10:00', ZName='HOTTTT'))
 # print(insert('zoo_event', EDate='1999-1-1',EName='AA', ETime='8:8:8', ZName='AAA', SFlag=1, NID=1, EFlag=0))
