@@ -1,8 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
 
-password = 'tongplw'
-database = 'test'
+password = 'terktana18'
+database = 'cyberzoo2088'
 
 def insert(table, **kwargs):
     """ FOR EXAMPLE

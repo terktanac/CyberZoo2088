@@ -32,7 +32,7 @@ class EventQueryWin():
                     AS TotalPrice, zoo_event.EName, zoo_event.EDate \
                     FROM event_ticket INNER JOIN zoo_event ON zoo_event.EventID = event_ticket.EventID \
                     WHERE extract(year from EDate)={year} \
-                    GROUP BY EventID ORDER BY TotalPrice \
+                    GROUP BY EventID ORDER BY TotalPrice DESC\
                     LIMIT 3;'.format(year=self.entry_search.get())
         )
 
