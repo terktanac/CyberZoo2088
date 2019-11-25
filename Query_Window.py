@@ -28,7 +28,12 @@ class EventQueryWin():
         ret_msg = select(
             'zoo_event',
             one_row=False,
-            command="select * from zoo_event where extract(year from EDate)={year};".format(year=self.entry_search.get())
+            command='SELECT event_ticket.EventID, sum(event_ticket.Price) \
+                    AS TotalPrice, zoo_event.EName, zoo_event.EDate \
+                    FROM event_ticket INNER JOIN zoo_event ON zoo_event.EventID = event_ticket.EventID \
+                    WHERE extract(year from EDate)={year} \
+                    GROUP BY EventID ORDER BY TotalPrice \
+                    LIMIT 3;'.format(year=self.entry_search.get())
         )
 
         for i in self.cells:
